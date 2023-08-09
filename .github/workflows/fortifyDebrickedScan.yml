@@ -38,7 +38,11 @@ jobs:
         with:
           java-version: 11
           distribution: 'temurin'
-
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+            node-version: 18
+      - run: npm i
       # Prepare source+dependencies for upload.  ScanCentral Client documentation is located at https://www.microfocus.com/documentation/fortify-software-security-center/
       - name: Download Fortify ScanCentral Client
         uses: fortify/gha-setup-scancentral-client@v2
