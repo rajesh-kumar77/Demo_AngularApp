@@ -36,20 +36,20 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
-          java-version: 11
-          distribution: 'temurin'
+          java-version: 17
+          distribution: 'zulu'
       - name: Setup node
         uses: actions/setup-node@v3
         with:
             node-version: 18
-      - run: npm i
+      - run: npm i -g gulp
       # Prepare source+dependencies for upload.  ScanCentral Client documentation is located at https://www.microfocus.com/documentation/fortify-software-security-center/
       - name: Download Fortify ScanCentral Client
         uses: fortify/gha-setup-scancentral-client@v2
       - name: Package Code + Dependencies
         run: scancentral package $PACKAGE_OPTS -o package.zip
         env:
-          PACKAGE_OPTS: "-bt mvn -oss"
+          PACKAGE_OPTS: "-bt none -oss -snm"
 
       # Start Fortify on Demand SAST scan and wait until results complete. For more information on FoDUploader commands, see https://github.com/fod-dev/fod-uploader-java
       - name: Download Fortify on Demand Universal CI Tool
